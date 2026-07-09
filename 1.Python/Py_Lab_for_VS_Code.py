@@ -1511,22 +1511,31 @@
 ############################################################
 
 # n = int(input())
-# 
+
 # # 여기서 n은 이후 사용되지 않음
 # # 두 번째줄의 값 들만 입력 받아서 사용하면 됨
-# 
+
 # # 코드 작성
+# g = map(int, input().split())
+# a = (x for x in g if x >= 10)
+
+# print(len(a))
+# print(*a)
 
 ############################################################
 # [8-13] 선별된 귤을 모두 2배하기
 ############################################################
 
 # n = int(input())
-# 
+
 # # 여기서 n은 이후 사용되지 않음
 # # 두 번째줄의 값 들만 입력 받아서 사용하면 됨
-# 
+
 # # 코드 작성
+# g = map(int, input().split())
+# a = (x*2 for x in g if x >= 10)
+# print(len(a))
+# print(*a)
 
 ############################################################
 # [8-14] * 연산을 이용한 다차원 List 생성
@@ -1550,7 +1559,7 @@
 # print(x)
 # x[0].extend((1,2))
 # print(x)
-# 
+
 # y = [ [0 for j in range(3) ] for i in range(4) ]
 # print(y)
 # y[0][0] = 1
@@ -1655,7 +1664,15 @@
 
 # def compare(num):
 #     #코드 작성
-# 
+#     if(num %2==0):
+#         return 2
+#     elif(num %3==0):
+#         return 3
+#     elif(num %5==0):
+#         return 5
+#     else:
+#         return 0
+
 # print('3 =>', compare(3))
 # print('62 =>', compare(62))
 # print('25 =>', compare(25))
@@ -1667,18 +1684,35 @@
 
 # def func(n) :
 #     #코드 작성
-# 
+#     if n<= 100 and n>=90: return 'A'
+#     elif n<90 and n>=80: return 'B'
+#     elif n<80 and n>=70: return 'C'
+#     elif n<70 and n>=60: return 'D'
+#     elif n<60 and n>0: return 'F'
+#     else: return 'ERROR'
+    
+    
+
 # print(func(int(input())))
 
 ############################################################
 # [9-8] 주차요금
 ############################################################
 
-# time = int(input())
-# 
-# #코드 작성
-# 
-# print(fee)
+time = int(input())
+
+#코드 작성
+if time < 10: fee = 0
+if time >= 10 and time <= 30: fee = 500
+
+if time >= 30:
+    defalt_fee = 500
+    add_time = time - 30
+    if add_time % 10 == 0: fee = defalt_fee + (add_time//10) * 300
+    else: fee = defalt_fee + (add_time//10 + 1) * 300 
+    
+    if fee > 50000: fee = 50000
+print(fee)
 
 ############################################################
 # [9-9] for 문의 구성
@@ -1723,7 +1757,11 @@
 
 # def my_sum(y) :
 #     #코드 작성
-# 
+#     _sum =0
+#     for i in x:
+#         _sum+=i
+#     return _sum
+
 # x = map(int, input().split())
 # print(my_sum(x))
 
@@ -1732,17 +1770,23 @@
 ############################################################
 
 # t = ('kim','lee','park','kim','song','lee')
-# 
+# x = input()
 # # 코드 작성
+# for i in range(len(t)):
+#     if x == t[i]:
+#         print(i)
 	
 ############################################################
 # [9-13-1] 귤 판매 시즌2 : comprehensions
 ############################################################
+# a = int(input())
+# n = map(int, input().split())
+# l =[]
 
-# n = int(input())
-# 
-# l = [x for x in map(int, input().split()) if x >= 10]
-# 
+# for i in n:
+#     if i >= 10:
+#         l.append(i)
+
 # print(len(l))
 # print(*l)
 
@@ -1753,9 +1797,9 @@
 # n = int(input())
 # x = map(int, input().split())
 # box = []
-# 
+
 # # 코드 작성
-# 
+
 # print(len(box))
 # print(*box) 
 
@@ -1774,29 +1818,56 @@
 
 #코드 작성
 
+# for i in range(5):
+#     for j in range(i+1):
+#         print('*', end='')
+#     print()
+
 ############################################################
 # [9-15-2] 별 찍기 2
 ############################################################
 
 #코드 작성
+# for i in range(5):
+#     for j in range(0,5-i):
+#         print('*', end='')
+#     print()
 
 ############################################################
 # [9-15-3] 별 찍기 3
 ############################################################
 
-#코드 작성
+# #코드 작성
+# for i in range(5):
+#     for k in range(0, 4-i):
+#         print(' ', end='')
+#     for j in range(i+1):
+#         print('*', end='')
+#     print()
 
 ############################################################
 # [9-15-4] 별 찍기 4
 ############################################################
 
 #코드 작성
+# for i in range(5):
+#     for k in range(i):
+#         print(' ', end='')
+#     for j in range(0, 5-i):
+#         print('*', end='')
+#     print()
 
 ############################################################
 # [9-15-5] 별 찍기 5
 ############################################################
 
 #코드 작성
+# for i in range(5):
+#     for k in range(0, 4-i):
+#         print(' ', end='')
+#     for j in range(2*i+1):
+#         print('*', end='')
+#     print()
 
 ############################################################
 # [9-16-1] 이차원 튜플의 아이템 인쇄 1
@@ -1827,8 +1898,12 @@
 ############################################################
 		
 # t = ((1,2,3,4),(5,6,7,8),(9,10,11,12))
-# 
-# # 코드 작성
+
+# #코드 작성
+# for i in range(len(t)+1) :
+#     for j in range(len(t)):
+#         print(t[j][i], end=' ')
+#zip으로도 가능하지
 
 ############################################################
 # [9-18] break, continue의 동작
@@ -1846,8 +1921,17 @@
 
 # m, n = map(int, input().split())
 # l = []
-# 
+
 # # 코드 작성
+
+# if (m > n) or m <= 0 or n <= 0: print('Error')
+# else:
+#     for i in range(m, n+1):
+#         if len(l) == 10: break;
+#         if (i % 3 == 0) and (i % 5 == 0) :
+#             l.append(i)
+#     print(len(l))
+#     print(*l)
 
 
 ############################################################
@@ -1856,10 +1940,21 @@
 
 # l1 = []
 # l2 = []
-# 
+
 # m, n = map(int, input().split())
-# 
+
 # # 코드 작성
+# if (m > n) or m < 0 or n < 0: print('Error')
+# else:
+#     for i in range(m, n+1):
+#         if len(l1)> 10 or len(l2)> 10: break;
+#         if (i % 3 == 0): l1.append(i)
+#         if (i % 5 == 0) and (not i % 3): l2.append(i)
+        
+#     print(len(l1))
+#     print(*l1)
+#     print(len(l2))
+#     print(*l2)
 
 		
 ############################################################
@@ -1945,6 +2040,11 @@
 
 # 코드 작성
 
+# while(True):
+#     a = input()
+#     if a =='X': break
+#     print('ERROR')
+# print('EXIT')
 
 
 ############################################################
