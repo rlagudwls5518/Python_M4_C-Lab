@@ -1699,20 +1699,20 @@
 # [9-8] 주차요금
 ############################################################
 
-time = int(input())
+# time = int(input())
 
-#코드 작성
-if time < 10: fee = 0
-if time >= 10 and time <= 30: fee = 500
+# #코드 작성
+# if time < 10: fee = 0
+# if time >= 10 and time <= 30: fee = 500
 
-if time >= 30:
-    defalt_fee = 500
-    add_time = time - 30
-    if add_time % 10 == 0: fee = defalt_fee + (add_time//10) * 300
-    else: fee = defalt_fee + (add_time//10 + 1) * 300 
+# if time >= 30:
+#     defalt_fee = 500
+#     add_time = time - 30
+#     if add_time % 10 == 0: fee = defalt_fee + (add_time//10) * 300
+#     else: fee = defalt_fee + (add_time//10 + 1) * 300 
     
-    if fee > 50000: fee = 50000
-print(fee)
+#     if fee > 50000: fee = 50000
+# print(fee)
 
 ############################################################
 # [9-9] for 문의 구성
@@ -2082,12 +2082,18 @@ print(fee)
 ############################################################
   
 # a = [1,4,7,10]
-# 
+
 # while True:
 #     m = int(input())
-# 
 #     # 코드 작성
-#         
+#     if m == 0: break
+#     if m >= a[-1]:
+#         a.append(m)
+#     else:
+#         for i in range(len(a)-1):
+#             if a[i] <= m and a[i+1] > m:
+#                 a.insert(i+1,m) 
+#                 break
 #     print(a)
 
 ############################################################
@@ -2109,24 +2115,33 @@ print(fee)
 # [10-12] 빵을 두 군데서 받은 학생은 모두 몇 명?
 ############################################################
 
-# x = ('kim', 'lee', 'park', 'song', 'moon', 'lew')
+# x = ('kim', 'lee', 'park', 'song' , 'moon', 'lew')
 # y = ('min', 'park', 'kong', 'mo', 'lew')
-# 
+
 # # 코드 작성
-# 
-# print( num )
+# count = 0
+# for i in y:
+#     if i in x: 
+#         count+=1
+        
+            
+# print( count )
 
 ############################################################
 # [10-13] 없어진 학생은?
 ############################################################
 
 # K = int(input())
-# 
+
 # for x in range(K):
-#     N, M = (int(y) for y in input().split())
-#     r = [int(y) for y in input().split()]
-#      
+#     l = []
+#     N, M = map(int, input().split())
+#     r = list(map(int, input().split()))
 #     # 코드 작성
+#     for i in range(1, N+1):
+#         if i not in r:
+#             l.append(i)
+#     print(*l)
    
 ############################################################
 # [10-15] 문자별 횟수 세기
@@ -2417,23 +2432,23 @@ print(fee)
 
 # class CLS :
 #     a = 10
-# 
+
 #     def f1(self, x) :
 #         y = x + 1
 #         self.b = y
 #         CLS.a += y
 #         print(CLS.a, self.b, y)
-# 
+
 #     def f2(self, x) :
 #         y = x + 100
 #         self.b = y
 #         CLS.a += y
 #         print(CLS.a, self.b, y)        
-# 
+
 # c = CLS()
 # c.f1(20)
 # c.f2(200)
-# 
+
 # print(CLS.a, c.b)
 
 ############################################################
@@ -2590,21 +2605,21 @@ print(fee)
 ############################################################
 
 # a, b = 3, 5
-# 
+
 # print(dir(int))
-# 
+
 # r1 = a + b
 # r2 = int.__add__(a, b)
 # r3 = a.__add__(b)
-# 
+
 # print(r1, r2, r3)
-# 
+
 # print(dir(str))
-# 
+
 # r4 = "Hi" + "Pyhhon"
 # r5 = str.__add__("Hi", "Pyhhon")
 # r6 = "Hi".__add__("Pyhhon")
-# 
+
 # print(r4, r5, r6)
 
 ############################################################
