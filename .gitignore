@@ -8,3 +8,12 @@
 *.exe
 /bin/
 /build/
+
+# 최종 빌드 이미지 및 디버깅 파일 무시
+*.bin
+*.elf
+*.map
+
+# 분석용 임시 덤프 파일 무시
+__dump.txt
+__dump_all.txt
