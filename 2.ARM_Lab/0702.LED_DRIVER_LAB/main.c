@@ -1,6 +1,10 @@
 #include "device_driver.h"
 #include <stdio.h>
 
+extern void LED_init(void);
+extern void LED_On(void);
+extern void LED_Off(void);
+
 static void Sys_Init(int baud) 
 {
     SCB->CPACR |= (0x3 << 10*2)|(0x3 << 11*2); 
