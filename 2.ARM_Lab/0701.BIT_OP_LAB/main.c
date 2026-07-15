@@ -1,5 +1,6 @@
 #include "device_driver.h"
 #include <stdio.h>
+#include "macro.h"
 
 static void Sys_Init(int baud) 
 {
@@ -8,7 +9,7 @@ static void Sys_Init(int baud)
 	setvbuf(stdout, NULL, _IONBF, 0);
 }
 
-#if 1
+#if 0
 
 void Main(void)
 {
@@ -30,13 +31,16 @@ void Main(void)
 	printf("LED ON : Bit Operation - 1\n");
 
 	/* 비트 연산을 이용하여 LED를 ON하는 코드를 설계하시오 */
-
+	GPIOA->MODER |= 0x1 << 10;
+	GPIOA->MODER &= ~(0x1 << 11);
+	GPIOA->OTYPER &= ~(0x1 << 5);
+	GPIOA->ODR |= 0x1 << 5; 
 
 }
 
 #endif
 
-#if 0
+#if 1
 
 void Main(void)
 {
@@ -46,14 +50,18 @@ void Main(void)
 	volatile int i;
 
 	/* 매크로를 이용하여 초기에 LED를 출력으로 설정하고 OFF */
-
+	Macro_Write_Block(GPIOA->MODER, 0x3, 0x1, 10);
+	Macro_Clear_Bit(GPIOA->OTYPER, 5);
 
 
 	for(;;)
 	{
 		/* LED 반전 및 Delay, Delay는 0x80000으로 설정 */
+		Macro_Set_Bit(GPIOA->ODR, 5);
+		for(i = 0; i < 0x80000; i++);
 
-
+		Macro_Clear_Bit(GPIOA->ODR, 5);
+		for(i = 0; i < 0x80000; i++);
 	}
 }
 
