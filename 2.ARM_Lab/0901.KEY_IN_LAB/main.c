@@ -60,29 +60,24 @@ void Main(void)
 		
 		// KEY(PC13)이 눌릴때마다 LED(PA5)가 Toggling하도록 코드 작성
 
-		// if( togle == 0 && ((GPIOC->IDR >> 13) & 0x1)){
-		// 	GPIOA->ODR ^= (~((GPIOC->IDR >> 13) & 0x1) << 5);
-		// 	togle = 1;
-		// }
-		// else if(togle == 1 && (~((GPIOC->IDR >> 13) & 0x1) << 5)){
-		// 	togle = 0;
-		// }
-		// GPIOA->ODR ^= (~((GPIOC->IDR >> 13) & 0x1) << 5);
-		// if(lock == 0 && !((GPIOC->IDR >> 13) & 0x1)){
-		// 	GPIOA->ODR = (~((GPIOC->IDR >> 13) & 0x1) << 5);
+		// if((lock == 0) && (Macro_Check_Bit_Clear(GPIOC->IDR, 13)))
+		// {
+		// 	Macro_Invert_Bit(GPIOA->ODR, 5);
 		// 	lock = 1;
 		// }
-		// else if(lock == 1 && !((GPIOC->IDR >> 13) & 0x1)){
+		
+		// else if((lock == 1) && (Macro_Check_Bit_Set(GPIOC->IDR, 13)))
+		// {
 		// 	lock = 0;
 		// }
 
-		if((lock == 0) && (Macro_Check_Bit_Clear(GPIOC->IDR, 13)))
+		if((lock == 0) && !((GPIOC->IDR >> 13) & 0x1))
 		{
-			Macro_Invert_Bit(GPIOA->ODR, 5);
+			GPIOA->ODR ^=(0x1 << 5); 
 			lock = 1;
 		}
 		
-		else if((lock == 1) && (Macro_Check_Bit_Set(GPIOC->IDR, 13)))
+		else if((lock == 1) && ((GPIOC->IDR >> 13) & 0x1))
 		{
 			lock = 0;
 		}
@@ -101,13 +96,13 @@ void Main(void)
 	/* 아래 코드 수정 금지 : Port-C Clock Enable */
 	Macro_Set_Bit(RCC->AHB1ENR, 2); 
 
-	// KEY(PC13)을 GPIO 입력으로 선언 
+	// KEY(PC7)을 GPIO 입력으로 선언 
+	Macro_Write_Block(GPIOC->MODER, 0x3, 0x0, 14);
 	GPIOC->PUPDR = ((GPIOC->PUPDR & ~(0x3 << 14)) | (0x1 << 14));
 	
 	for(;;)
 	{
 		GPIOA->ODR = ((~(GPIOC->IDR >> 7) & 0x1) << 5);
-	
 	}
 }
 #endif
