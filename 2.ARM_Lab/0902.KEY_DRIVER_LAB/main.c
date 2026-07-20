@@ -30,7 +30,7 @@ void Main(void)
 			{
 				if(Key_Get_Pressed())
 				{
-					printf("Key Pressed! [%d]\n", i);
+					printf("Key Pressed! [%d]\n", i+1);
 					Key_Wait_Key_Released();
 					break;
 				}
@@ -49,7 +49,7 @@ void Main(void)
 		for(i = 0; i<10; i++)
 		{
 			Key_Wait_Key_Pressed();
-			printf("Key Pressed! [%d]\n", i);
+			printf("Key Pressed! [%d]\n", i+1);
 			LED_On();
 			Key_Wait_Key_Released();
 			LED_Off();

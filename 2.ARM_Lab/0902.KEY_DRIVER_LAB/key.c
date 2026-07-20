@@ -9,14 +9,19 @@ void Key_Poll_Init(void)
 int Key_Get_Pressed(void)
 {
 	// Key가 눌렸으면 1, 안 눌렸으면 0 리턴
+	return (!((GPIOC->IDR >> 13) & 0x01));
 }
 
 void Key_Wait_Key_Pressed(void)
 {
 	// 키가 눌릴때까지 대기하고 눌리면 리턴
+	while(((GPIOC->IDR >> 13) & 0x01));
+	return;
 }
 
 void Key_Wait_Key_Released(void)
 {
 	// 키가 안 눌릴때까지 대기하고 안 눌리면 리턴
+	while(!((GPIOC->IDR >> 13) & 0x01));
+	return;
 }
