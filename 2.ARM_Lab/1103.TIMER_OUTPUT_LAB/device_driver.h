@@ -7,6 +7,7 @@
 
 extern void Uart2_Init(int baud);
 extern void Uart2_Send_Byte(char data);
+extern char Uart2_Get_Pressed(void);
 
 extern void Uart1_Init(int baud);
 extern void Uart1_Send_Byte(char data);
@@ -51,4 +52,5 @@ extern void TIM4_Stop(void);
 extern void TIM4_Change_Value(int time);
 extern void TIM3_Out_Init(void);
 extern void TIM3_Out_Freq_Generation(unsigned short freq);
+extern void TIM3_Out_PWM_Generation(unsigned short freq, int duty);
 extern void TIM3_Out_Stop(void);

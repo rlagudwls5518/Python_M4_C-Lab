@@ -47,6 +47,11 @@ void Uart2_Send_Byte(char data)
   USART2->DR = data;
 }
 
+void Uart2_Get_Byte(char data)
+{
+
+}
+
 void Uart1_Init(int baud)
 {
   double div;

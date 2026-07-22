@@ -8,9 +8,10 @@ static void Sys_Init(int baud)
 	Uart2_Init(baud);
 	setvbuf(stdout, NULL, _IONBF, 0);
 	LED_Init();
+	Key_Poll_Init();
 }
 
-#if 1
+#if 0
 
 void Main(void)
 {
@@ -125,8 +126,63 @@ void Main(void)
 			printf("[%d]\n", i++);
 			if(i > 20) i = 1;
 			TIM4_Change_Value(50 * i);
+			i % 2 ? LED_On() : LED_Off();
 		}
 	}
 }
 
+#endif
+
+#if 1
+void Main(void)
+{
+	Sys_Init(115200);
+	printf("\nUART Echo-Back Test1\n");
+	int lock = 0;
+	int dir =0;
+	
+	//Uart1_Init(115200);
+	GPIOA->MODER = ((GPIOA->MODER & ~0xF) | 0x5);
+	GPIOA->OTYPER &= ~0x3;
+
+	GPIOC->MODER = ((GPIOC->MODER & ~(0x3 << 26)) | (0x0 << 26));
+
+	for(;;){
+
+		if((lock == 0) && Key_Get_Pressed())
+		{
+			TIM2_Stopwatch_Start_value(3000);
+			lock = 1;    
+		}
+
+		if((lock == 1) && TIM2_Check_Timeout() && Key_Get_Pressed())
+		{
+			GPIOA->ODR &= ~0x3; 
+			TIM2_Stop();
+			lock = 2;           
+		}
+
+		if(((lock == 1) || (lock == 2) ) && !Key_Get_Pressed())
+		{
+			if(lock == 1){
+				GPIOA->ODR &= ~0x3;
+				TIM2_Delay(1000);
+						
+				if(dir)
+				{
+					GPIOA->ODR |= 0x1; 
+					dir = 0;
+				}
+				else
+				{
+					GPIOA->ODR |= 0x2; 
+					dir = 1;
+				}
+			}
+			lock = 0;
+		}
+	
+	}
+	
+}
 #endif

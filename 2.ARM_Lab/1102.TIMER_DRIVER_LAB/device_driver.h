@@ -44,8 +44,9 @@ extern void Key_Wait_Key_Pressed(void);
 
 extern void TIM2_Delay(int time);
 extern void TIM2_Stopwatch_Start(void);
+extern void TIM2_Stopwatch_Start_value(int time);
 extern unsigned int TIM2_Stopwatch_Stop(void);
-extern void TIM4_Repeat(int time);
-extern int TIM4_Check_Timeout(void);
-extern void TIM4_Stop(void);
+extern void TIM2_Repeat(int time);
+extern int TIM2_Check_Timeout(void);
+extern void TIM2_Stop(void);
 extern void TIM4_Change_Value(int time);

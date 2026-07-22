@@ -55,38 +55,46 @@ void Main(void)
 }
 #endif
 
-#if 1
+#if 0
 void Main(void)
 {
 	Sys_Init(115200);
 	printf("\nUART Echo-Back Test1\n");
 	int lock = 0;
-	
-
-	
+	int dir =0;
 	//Uart1_Init(115200);
 	GPIOA->MODER = ((GPIOA->MODER & ~0xF) | 0x5);
-	GPIOA->OTYPER = ((GPIOA->OTYPER & ~0x3) | 0x0);
+	GPIOA->OTYPER &= ~0x3;
 
 	GPIOC->MODER = ((GPIOC->MODER & ~(0x3 << 26)) | (0x0 << 26));
-	GPIOA->ODR &= ~0x3;
 
 	for(;;){
 		volatile int i;
 
-		if((lock == 0) && Key_Get_Pressed())
+		if((lock == 0) && !((GPIOC->IDR >> 13) & 0x1))
 		{
+			for(i = 0; i < 0x3ffff; i++); 
+
 			GPIOA->ODR &= ~0x3;
-			for(i = 0; i< 0xffff; i++);
-			GPIOA->ODR = 0x2;
-			lock = 1;
+			for(i = 0; i < 0x3ffff; i++); 
+			
+			if(dir)
+			{
+				GPIOA->ODR |= 0x1; 
+				dir = 0;
+			}
+			else
+			{
+				GPIOA->ODR |= 0x2; 
+				dir = 1;
+			}
+
+			lock = 1; 
 		}
 		
-		else if((lock == 1) && Key_Get_Pressed())
+		else if((lock == 1) && ((GPIOC->IDR >> 13) & 0x1))
 		{
-			GPIOA->ODR &= ~0x3;
-			for(i = 0; i< 0xffff; i++);
-			GPIOA->ODR = 0x1;
+			for(i = 0; i < 0x3ffff; i++); 
 			lock = 0;
 		}
 	}

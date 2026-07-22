@@ -5,6 +5,19 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+char Uart2_Get_Pressed(void)
+{
+	if(Macro_Check_Bit_Set(USART2->SR, 5))
+	{
+		return (char)USART2->DR;
+	}
+
+	else
+	{
+		return (char)0;
+	}
+}
+
 void Uart2_Init(int baud)
 {
   double div;
@@ -121,7 +134,7 @@ char Uart1_Get_Pressed(void)
 	}
 }
 
-char Uart1_Get_Char(void)
+char Uart1_Get_Char(void)// 스캔에프에쓸거같은디
 {
 	while(!Macro_Check_Bit_Set(USART1->SR, 5));
 	return (char)USART1->DR;

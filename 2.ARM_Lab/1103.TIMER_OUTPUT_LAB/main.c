@@ -12,15 +12,15 @@ static void Sys_Init(int baud)
 
 #define BASE  (500) //msec
 
-static void Buzzer_Beep(unsigned char tone, int duration)
-{
-	const static unsigned short tone_value[] = {261,277,293,311,329,349,369,391,415,440,466,493,523,554,587,622,659,698,739,783,830,880,932,987};
+// static void Buzzer_Beep(unsigned char tone, int duration)
+// {
+// 	const static unsigned short tone_value[] = {261,277,293,311,329,349,369,391,415,440,466,493,523,554,587,622,659,698,739,783,830,880,932,987};
 
-	TIM3_Out_Freq_Generation(tone_value[tone]);
-	TIM2_Delay(duration);
-	TIM3_Out_Stop();
-}
-
+// 	TIM3_Out_Freq_Generation(tone_value[tone]);
+// 	TIM2_Delay(duration);
+// 	TIM3_Out_Stop();
+// }
+#if 0
 void Main(void)
 {
 	Sys_Init(115200);
@@ -59,3 +59,22 @@ void Main(void)
 		Buzzer_Beep(song1[i][0], song1[i][1]);
 	}
 }
+#endif
+#if 1
+void Main(void)
+{
+	Sys_Init(115200);
+	printf("PWM Test!!\n");
+
+	TIM3_Out_Init();
+
+	TIM3_Out_PWM_Generation(1000, 80);
+	TIM2_Delay(1000);
+	TIM3_Out_PWM_Generation(1000, 20);
+	TIM2_Delay(1000);
+	TIM3_Out_PWM_Generation(1000, 50);
+	TIM2_Delay(1000);
+
+
+}
+#endif
