@@ -12,6 +12,9 @@ void _Invalid_ISR(void)
 void EXTI15_10_IRQHandler(void)
 {
 	// KEY Pressed 메시지 인쇄
+	printf("hi");
 	// KEY(EXTI) Pending Clear
+	EXTI->PR = (1 << 13);
 	// NVIC Pending Clear
+	NVIC_ClearPendingIRQ((IRQn_Type)40);
 }
