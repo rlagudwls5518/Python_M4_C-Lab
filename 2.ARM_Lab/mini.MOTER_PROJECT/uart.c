@@ -5,17 +5,19 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-char Uart2_Get_Pressed(void)
+void Uart2_RX_Interrupt_Enable(int en)
 {
-	if(Macro_Check_Bit_Set(USART2->SR, 5))
-	{
-		return (char)USART2->DR;
-	}
-
-	else
-	{
-		return (char)0;
-	}
+  if(en)
+  {
+    Macro_Set_Bit(USART2->CR1, 5);
+    NVIC_ClearPendingIRQ(38);
+    NVIC_EnableIRQ(38);
+  }
+  else
+  {
+    Macro_Clear_Bit(USART2->CR1, 5);
+    NVIC_DisableIRQ(38);
+  }
 }
 
 void Uart2_Init(int baud)

@@ -2,7 +2,7 @@
 #include "option.h"
 #include "macro.h"
 #include "malloc.h"
-
+#include <stdio.h>
 #define PWM_INPUT_FREQ       10000
 #define MOTOR_SPEED_INIT     50
 #define MOTOR_SPEED_UP       5
@@ -15,16 +15,25 @@ typedef enum
     MOTOR_CCW
 } MotorState;
 
+typedef enum
+{
+    NONE,
+    KEY_PRESSED,
+    KEY_RELEASED,
+    UART_INPUT,
+    TIMER2_OUT
+} eventState;
+
 extern MotorState prev_state;
 extern MotorState curr_state;
+extern eventState event;
 
 
 // Uart.c
 
 extern void Uart2_Init(int baud);
 extern void Uart2_Send_Byte(char data);
-extern char Uart2_Get_Pressed(void);
-
+extern void Uart2_RX_Interrupt_Enable(int en);
 extern void Uart1_Init(int baud);
 extern void Uart1_Send_Byte(char data);
 extern void Uart1_Send_String(char *pt);
@@ -52,27 +61,32 @@ extern void Clock_Init(void);
 
 // Key.c
 
-extern void Key_Poll_Init(void);
-extern int Key_Get_Pressed(void);
-extern void Key_Wait_Key_Released(void);
-extern void Key_Wait_Key_Pressed(void);
+extern void Key_Init();
+extern void Key_ISR_Enable(int en);
 
 // Timer.c
-
-extern void Timer5_Init(void);
 extern void Timer2_Init(void);
-extern void Timer2_Start(int time);
+extern void Timer2_Start();
 extern void Timer2_Stop(void);
+extern void TIM2_Interrupt_Enable(int en);
+extern void TIM3_Repeat_Interrupt_Enable(int en);
+extern void Timer5_Init(void);
 extern void Timer5_Out_Pwm_Generator(int duty);
-extern void Timer2_Delay(int time);
-extern int Timer2_IsTimeout(void);
 
 //motor.c
 extern void Motor_Init(void);
-extern void Motor_Main(int flag);
-extern void Motor_Stop(void);
-extern void Motor_Left(int duty);
-extern void Motor_Right(int duty);
+extern void Motor_Main();
+extern void Long_key_motor_state();
+extern void Motor_ProcessKeyState();
+extern void Motor_ProcessUartState(char data);
+extern void Motor_Stop();
 extern void Motor_RotateCW(void);
 extern void Motor_RotateCCW(void);
-extern void Motor_ProcessState(void);
+
+
+//exception.c
+extern void _Invalid_ISR();
+extern void TIM3_IRQHandler();
+extern void EXTI15_10_IRQHandler();
+extern void TIM2_IRQHandler();
+extern void USART2_IRQHandler();
